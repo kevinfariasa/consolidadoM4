@@ -9,6 +9,12 @@ async function loadCharacter(i, id, parent, color) {
     }
 }
 
+function* generador (i, id, parent, color){
+    while (true){
+        yield loadCharacter (i, id, parent, color);
+    }
+}
+
 let count1 = 1;
 let count2 = 6;
 let count3 = 11;
@@ -16,7 +22,7 @@ let count3 = 11;
 const selector = (id, parent, color) => {
     if (id == 'principalSection') {
         if (count1 < 6) {
-            loadCharacter(count1, id, parent, color)
+            generador(count1, id, parent, color).next();
             count1++
         } else {
             $('div').remove(`.${id}`)
@@ -24,7 +30,7 @@ const selector = (id, parent, color) => {
         }
     } else if (id == 'secondarySection') {
         if (count2 < 11) {
-            loadCharacter(count2, id, parent, color)
+            generador(count2, id, parent, color).next();
             count2++
         } else {
             $('div').remove(`.${id}`)
@@ -32,7 +38,7 @@ const selector = (id, parent, color) => {
         }
     } else if (id == 'otherSection') {
         if (count3 < 16) {
-            loadCharacter(count3, id, parent, color)
+            generador(count3, id, parent, color).next();
             count3++
         } else {
             $('div').remove(`.${id}`)
